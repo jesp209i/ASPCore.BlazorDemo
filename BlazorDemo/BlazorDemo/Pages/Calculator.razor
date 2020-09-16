@@ -8,7 +8,7 @@
             <p>First Number</p>
         </div>
         <div class="col-md-4">
-            <input placeholder="Enter First Number" @bind="@num1" />
+            <input placeholder="Enter First Number" id="num1" @bind="@num1" />
         </div>
     </div>
     <br />
@@ -17,7 +17,7 @@
             <p>Second Number</p>
         </div>
         <div class="col-md-4">
-            <input placeholder="Enter Second Number" @bind="@num2" />
+            <input placeholder="Enter Second Number" id="num2" @bind="@num2" />
         </div>
     </div>
     <br />
@@ -26,22 +26,22 @@
             <p>Result</p>
         </div>
         <div class="col-md-4">
-            <input readonly @bind="@finalresult" />
+            <input readonly @bind="@finalresult" id="final-result" />
         </div>
     </div>
     <br />
     <div class="row">
         <div class="col-md-2">
-            <button @onclick="AddNumbers" class="btn btn-light">Add (+)</button>
+            <button @onclick="AddNumbers" id="btn-add-numbers" class="btn btn-light">Add (+)</button>
         </div>
         <div class="col-md-2">
-            <button @onclick="SubtractNumbers" class="btn btn-primary">Subtract (−)</button>
+            <button @onclick="SubtractNumbers" id="btn-sub-numbers" class="btn btn-primary">Subtract (−)</button>
         </div>
         <div class="col-md-2">
-            <button @onclick="MultiplyNumbers" class="btn btn-success ">Multiply (X)</button>
+            <button @onclick="MultiplyNumbers" id="btn-mul-numbers" class="btn btn-success ">Multiply (X)</button>
         </div>
         <div class="col-md-2">
-            <button @onclick="DivideNumbers" class="btn btn-info">Divide (/)</button>
+            <button @onclick="DivideNumbers" id="btn-div-numbers" class="btn btn-info">Divide (/)</button>
         </div>
     </div>
 </div>
