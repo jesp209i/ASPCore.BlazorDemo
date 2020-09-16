@@ -1,9 +1,11 @@
-using System;
+﻿using System;
 using Xunit;
 using Bunit;
 using Bunit.TestDoubles.JSInterop;
 using static Bunit.ComponentParameterFactory;
 using BlazorDemo.Pages;
+using AngleSharp.Dom;
+using System.Collections.Generic;
 
 namespace BlazorDemo.Tests
 {
@@ -13,74 +15,109 @@ namespace BlazorDemo.Tests
     /// </summary>
     public class CalculatorTest : TestContext
     {
-        [Fact]
-        public void CalculatorAdds()
+        [Theory]
+        [InlineData("4","4","8")]
+        [InlineData("8", "4", "12")]
+        [InlineData("1", "1", "2")]
+        public void CalculatorAdds_tng(string number1, string number2, string expected)
         {
             // Arrange
             var component = RenderComponent<Calculator>();
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\">");
-
+            var input1 = component.Find("input[placeholder=\"Enter First Number\"]");
+            var input2 = component.Find("input[placeholder=\"Enter Second Number\"]");
+            var result = component.Find("input[readonly]");
+            // result is empty
+            result.MarkupMatches("<input readonly=\"\">");
             // Act
-            var num1 = component.Find("input#num1");
-            num1.Change("4");
-            var num2 = component.Find("input#num2");
-            num2.Change("4");
-            component.Find("button#btn-add-numbers").Click();
+
+            input1.Change(number1);
+            input1.MarkupMatches($"<input placeholder=\"Enter First Number\" value=\"{number1}\">");
+            input2.Change(number2);
+            input2.MarkupMatches($"<input placeholder=\"Enter Second Number\" value=\"{number2}\">");
+            var addButton = component.Find("button.btn-light");
+            Assert.Equal("Add (+)", addButton.TextContent);
+            addButton.Click();
 
             // Assert
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\" value=\"8\">");
-        }
-
-        [Fact]
-        public void CalculatorSubtracts()
-        {
-            // Arrange
-            var component = RenderComponent<Calculator>();
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\">");
-            // Act
-            var num1 = component.Find("input#num1");
-            num1.Change("4");
-            var num2 = component.Find("input#num2");
-            num2.Change("4");
-            component.Find("button#btn-sub-numbers").Click();
-
-            // Assert
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\" value=\"0\">");
-        }
-        [Fact]
-        public void CalculatorMultiply()
-        {
-            // Arrange
-            var component = RenderComponent<Calculator>();
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\">");
-            // Act
-            var num1 = component.Find("input#num1");
-            num1.Change("4");
-            var num2 = component.Find("input#num2");
-            num2.Change("4");
-            component.Find("button#btn-mul-numbers").Click();
-
-            // Assert
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\" value=\"16\">");
+            result.MarkupMatches($"<input readonly=\"\" value=\"{expected}\">");
         }
         [Theory]
-        [InlineData(4,2,2)]
-        [InlineData(10,2,5)]
-        [InlineData(100, 25, 4)]
-        public void CalculatorDivide(int number1, int number2, int expected)
+        [InlineData("10", "4", "6")]
+        [InlineData("8", "4", "4")]
+        [InlineData("1", "1", "0")]
+        public void CalculatorSubtracts_tng(string number1, string number2, string expected)
         {
             // Arrange
             var component = RenderComponent<Calculator>();
-            component.Find("input#final-result").MarkupMatches("<input id=\"final-result\" readonly=\"\">");
+            var input1 = component.Find("input[placeholder=\"Enter First Number\"]");
+            var input2 = component.Find("input[placeholder=\"Enter Second Number\"]");
+            var result = component.Find("input[readonly]");
+            // result is empty
+            result.MarkupMatches("<input readonly=\"\">");
             // Act
-            var num1 = component.Find("input#num1");
-            num1.Change($"{number1}");
-            var num2 = component.Find("input#num2");
-            num2.Change($"{number2}");
-            component.Find("button#btn-div-numbers").Click();
+
+            input1.Change(number1);
+            input1.MarkupMatches($"<input placeholder=\"Enter First Number\" value=\"{number1}\">");
+            input2.Change(number2);
+            input2.MarkupMatches($"<input placeholder=\"Enter Second Number\" value=\"{number2}\">");
+            var addButton = component.Find("button.btn-primary");
+            Assert.Equal("Subtract (−)", addButton.TextContent);
+            addButton.Click();
 
             // Assert
-            component.Find("input#final-result").MarkupMatches($"<input id=\"final-result\" readonly=\"\" value=\"{expected}\">");
+            result.MarkupMatches($"<input readonly=\"\" value=\"{expected}\">");
+        }
+        [Theory]
+        [InlineData("10", "4", "40")]
+        [InlineData("8", "4", "32")]
+        [InlineData("1", "1", "1")]
+        public void CalculatorMultiply_tng(string number1, string number2, string expected)
+        {
+            // Arrange
+            var component = RenderComponent<Calculator>();
+            var input1 = component.Find("input[placeholder=\"Enter First Number\"]");
+            var input2 = component.Find("input[placeholder=\"Enter Second Number\"]");
+            var result = component.Find("input[readonly]");
+            // result is empty
+            result.MarkupMatches("<input readonly=\"\">");
+            // Act
+
+            input1.Change(number1);
+            input1.MarkupMatches($"<input placeholder=\"Enter First Number\" value=\"{number1}\">");
+            input2.Change(number2);
+            input2.MarkupMatches($"<input placeholder=\"Enter Second Number\" value=\"{number2}\">");
+            var addButton = component.Find("button.btn-success");
+            Assert.Equal("Multiply (X)", addButton.TextContent);
+            addButton.Click();
+
+            // Assert
+            result.MarkupMatches($"<input readonly=\"\" value=\"{expected}\">");
+        }
+        [Theory]
+        [InlineData("10", "2", "5")]
+        [InlineData("8", "4", "2")]
+        [InlineData("1", "1", "1")]
+        public void CalculatorDivide_tng(string number1, string number2, string expected)
+        {
+            // Arrange
+            var component = RenderComponent<Calculator>();
+            var input1 = component.Find("input[placeholder=\"Enter First Number\"]");
+            var input2 = component.Find("input[placeholder=\"Enter Second Number\"]");
+            var result = component.Find("input[readonly]");
+            // result is empty
+            result.MarkupMatches("<input readonly=\"\">");
+            // Act
+
+            input1.Change(number1);
+            input1.MarkupMatches($"<input placeholder=\"Enter First Number\" value=\"{number1}\">");
+            input2.Change(number2);
+            input2.MarkupMatches($"<input placeholder=\"Enter Second Number\" value=\"{number2}\">");
+            var addButton = component.Find("button.btn-info");
+            Assert.Equal("Divide (/)", addButton.TextContent);
+            addButton.Click();
+
+            // Assert
+            result.MarkupMatches($"<input readonly=\"\" value=\"{expected}\">");
         }
     }
 }
