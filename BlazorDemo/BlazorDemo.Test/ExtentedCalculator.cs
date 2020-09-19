@@ -1,4 +1,5 @@
 ﻿using BlazorDemo.Pages;
+using BlazorDemo.Test.Data;
 using Bunit;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,8 @@ namespace BlazorDemo.Test
             operations.Add("power", "btn-power");
         }
         [Theory]
-        [InlineData("cuberoot", "CubeRoot (^(1/3))")]
-        [InlineData("xroot", "x-root (^(1/x))")]
-        [InlineData("power", "Power (^)")]
-        
+        [MemberData(nameof(ExtentedCalculatorData.GetButtons),
+            MemberType =typeof(ExtentedCalculatorData))]
         public void CanFindButtons(string buttonCssId, string buttonText)
         {
             var component = RenderComponent<Calculator>();
@@ -29,11 +28,9 @@ namespace BlazorDemo.Test
             Assert.Equal(buttonText, button.TextContent);
         }
         [Theory]
-        [InlineData("xroot", "4", "2", "2")]
-        [InlineData("xroot", "64", "3", "4")]
-        [InlineData("power", "10", "3", "1000")]
-        [InlineData("power", "8", "2", "64")]
-        [InlineData("power", "1", "1", "1")]
+        [ClassData(typeof(ExtentedCalculatorXRoot))]
+        [MemberData(nameof(ExtentedCalculatorData.GetPowerCalculations),
+            MemberType = typeof(ExtentedCalculatorData))]
         public void ExtentedCalculatorTest(string operation, string number1, string number2, string expected)
         {
             // Arrange
@@ -52,8 +49,8 @@ namespace BlazorDemo.Test
             result.MarkupMatches($"<input readonly=\"\" value=\"{expected}\">");
         }
         [Theory]
-        [InlineData("cuberoot", "64", "4")]
-        [InlineData("cuberoot", "8", "2")]
+        [MemberData(nameof(ExtentedCalculatorData.GetCubeRootCalculations),
+            MemberType = typeof(ExtentedCalculatorData))]
         public void ExtentedCalculator_CubeRoot_Test(string operation, string number1, string expected)
         {
             // Arrange

@@ -1,0 +1,13 @@
+﻿operation,firstnumber,secondnumber,expectedresult
+add,4,4,8
+add,8,4,12
+add,1,1,2
+subtract,10,4,6
+subtract,8,4,4
+subtract,1,1,0
+multiply,10,4,40
+multiply,8,4,32
+multiply,1,1,1
+divide,10,2,5
+divide,8,4,2
+divide,1,1,1
