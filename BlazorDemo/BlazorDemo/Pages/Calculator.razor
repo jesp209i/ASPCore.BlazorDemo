@@ -44,6 +44,17 @@
             <button @onclick="DivideNumbers" class="btn btn-info">Divide (/)</button>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <button @onclick="CubeRoot" id="btn-cuberoot" class="btn btn-light">CubeRoot (^(1/3))</button>
+        </div>
+        <div class="col-md-4">
+            <button @onclick="Power" id="btn-power" class="btn btn-primary">Power (^)</button>
+        </div>
+        <div class="col-md-4">
+            <button @onclick="XRoot" id="btn-xroot" class="btn btn-success ">x-root (^(1/x))</button>
+        </div>
+    </div>
 </div>
 
 @code {
@@ -72,5 +83,17 @@
         {
             finalresult = "Cannot Divide by Zero";
         }
+    }
+    void CubeRoot()
+    {
+        finalresult = Math.Ceiling(Math.Pow(Convert.ToDouble(num1), (double)1 / 3)).ToString();
+    }
+    void XRoot()
+    {
+        finalresult = Math.Ceiling(Math.Pow(Convert.ToDouble(num1), (double) 1/Convert.ToDouble(num2))).ToString();
+    }
+    void Power()
+    {
+        finalresult = (Math.Pow(Convert.ToDouble(num1), Convert.ToDouble(num2))).ToString();
     }
 }
