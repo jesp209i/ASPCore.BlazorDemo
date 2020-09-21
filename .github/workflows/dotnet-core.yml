@@ -20,6 +20,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ./BlazorDemo/BlazorDemo.sln
     - name: Build
-      run: dotnet build ./BlazorDemo/BlazorDemo.sln --configuration Release --no-restore ./BlazorDemo/BlazorDemo.sln
+      run: dotnet build ./BlazorDemo/BlazorDemo.sln --configuration Release --no-restore
     - name: Test
       run: dotnet test ./BlazorDemo/BlazorDemo.sln --no-restore --verbosity normal
