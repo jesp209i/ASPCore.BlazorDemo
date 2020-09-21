@@ -22,4 +22,4 @@ jobs:
     - name: Build
       run: dotnet build ./BlazorDemo/BlazorDemo.sln --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./BlazorDemo/BlazorDemo.sln --no-restore --verbosity normal
+      run: dotnet test ./BlazorDemo/BlazorDemo.sln --configuration Release
