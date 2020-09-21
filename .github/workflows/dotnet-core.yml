@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ./BlazorDemo/BlazorDemo.sln
     - name: Build
       run: dotnet build ./BlazorDemo/BlazorDemo.sln --configuration Release --no-restore ./BlazorDemo/BlazorDemo.sln
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test ./BlazorDemo/BlazorDemo.sln --no-restore --verbosity normal
