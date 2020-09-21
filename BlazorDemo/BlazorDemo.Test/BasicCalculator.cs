@@ -4,6 +4,7 @@ using BlazorDemo.Test.Data;
 using Bunit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Xunit;
 
@@ -11,8 +12,6 @@ namespace BlazorDemo.Test
 {
     public class BasicCalculator : TestContext
     {
-
-        Dictionary<string, string> operation;
         public BasicCalculator()
         {
             operation = new Dictionary<string, string>();
@@ -21,6 +20,7 @@ namespace BlazorDemo.Test
             operation.Add("multiply", "btn-success");
             operation.Add("divide", "btn-info");
         }
+        Dictionary<string, string> operation;
         [Fact]
         public void ChangeValueInInputFieldWorks()
         {
@@ -51,7 +51,7 @@ namespace BlazorDemo.Test
         [Theory]
         /*[MemberData(nameof(BasicCalculatorData.GetButtons), 
             MemberType = typeof(BasicCalculatorData))]*/
-        [CsvData(@"C:\Users\Jesper\source\repos\ASPCore.BlazorDemo\BlazorDemo\BlazorDemo.Test\Data\basicButtons.csv", true)]
+        [CsvData(@"\Data\basicButtons.csv", true)]
         public void CanFindButtons(string buttonCssClass, string buttonText)
         {
             var component = RenderComponent<Calculator>();
@@ -67,7 +67,7 @@ namespace BlazorDemo.Test
             MemberType = typeof(BasicCalculatorData)),
         MemberData(nameof(BasicCalculatorData.GetDivideCalculations),
             MemberType = typeof(BasicCalculatorData))]*/
-        [CsvData(@"C:\Users\Jesper\source\repos\ASPCore.BlazorDemo\BlazorDemo\BlazorDemo.Test\Data\basicCalculations.csv", true)]
+        [CsvData(@"\Data\basicCalculations.csv", true)]
         public void CalculatorOperation(string buttonToClick, string number1, string number2, string expected)
         {
             // Arrange

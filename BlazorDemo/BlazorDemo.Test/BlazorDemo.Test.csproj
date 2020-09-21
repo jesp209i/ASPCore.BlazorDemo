@@ -18,4 +18,13 @@
     <ProjectReference Include="..\BlazorDemo\BlazorDemo.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\basicButtons.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\basicCalculations.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

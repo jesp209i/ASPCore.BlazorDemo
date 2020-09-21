@@ -13,8 +13,10 @@ namespace BlazorDemo.Test.Attribute
     {
         private readonly string filePath;
         private readonly bool hasHeaders;
+        private readonly string path;
         public CsvDataAttribute(string filePath, bool hasHeaders)
         {
+            this.path = Directory.GetCurrentDirectory().ToString();
             this.filePath = filePath;
             this.hasHeaders = hasHeaders;
         }
@@ -23,7 +25,7 @@ namespace BlazorDemo.Test.Attribute
         {
             var methodParameters = testMethod.GetParameters();
             var parameterTypes = methodParameters.Select(x => x.ParameterType).ToArray();
-            using (var streamReader = new StreamReader(filePath))
+            using (var streamReader = new StreamReader($"{path}\\{filePath}"))
             {
                 if (hasHeaders)
                     streamReader.ReadLine();
