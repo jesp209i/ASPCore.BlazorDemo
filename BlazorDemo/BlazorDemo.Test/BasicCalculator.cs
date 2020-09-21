@@ -51,7 +51,7 @@ namespace BlazorDemo.Test
         [Theory]
         /*[MemberData(nameof(BasicCalculatorData.GetButtons), 
             MemberType = typeof(BasicCalculatorData))]*/
-        [CsvData(@"\Data\basicButtons.csv", true)]
+        [CsvData(@"Data/basicButtons.csv", true)]
         public void CanFindButtons(string buttonCssClass, string buttonText)
         {
             var component = RenderComponent<Calculator>();
@@ -67,7 +67,7 @@ namespace BlazorDemo.Test
             MemberType = typeof(BasicCalculatorData)),
         MemberData(nameof(BasicCalculatorData.GetDivideCalculations),
             MemberType = typeof(BasicCalculatorData))]*/
-        [CsvData(@"\Data\basicCalculations.csv", true)]
+        [CsvData(@"Data/basicCalculations.csv", true)]
         public void CalculatorOperation(string buttonToClick, string number1, string number2, string expected)
         {
             // Arrange

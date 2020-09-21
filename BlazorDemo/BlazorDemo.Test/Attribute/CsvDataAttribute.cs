@@ -25,7 +25,7 @@ namespace BlazorDemo.Test.Attribute
         {
             var methodParameters = testMethod.GetParameters();
             var parameterTypes = methodParameters.Select(x => x.ParameterType).ToArray();
-            using (var streamReader = new StreamReader($"{path}\\{filePath}"))
+            using (var streamReader = new StreamReader($"{path}/{filePath}"))
             {
                 if (hasHeaders)
                     streamReader.ReadLine();
